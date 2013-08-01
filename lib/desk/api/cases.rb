@@ -3,7 +3,7 @@ module Desk
     module Cases
 
       def cases
-        connection.get("cases")
+        Collection.new(connection.get("cases"))
       end
 
     end

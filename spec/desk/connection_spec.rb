@@ -20,7 +20,7 @@ describe Desk::Connection do
 
       result = subject.get("cases")
       expected = { "foo" => "bar" }
-      assert_equal expected, result.body
+      assert_equal expected, result
     end
   end
 

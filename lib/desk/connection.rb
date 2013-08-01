@@ -14,7 +14,7 @@ module Desk
     end
 
     def get(opts)
-      @connection.get(opts)
+      @connection.get(opts).body
     end
 
     private
