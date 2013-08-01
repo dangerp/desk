@@ -1,0 +1,1 @@
+A simple ruby interface to Desk.com
