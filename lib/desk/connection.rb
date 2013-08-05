@@ -13,8 +13,8 @@ module Desk
                          opts[:token_secret]
     end
 
-    def get(opts)
-      @connection.get(opts).body
+    def get(*opts)
+      @connection.get(*opts).body
     end
 
     private
