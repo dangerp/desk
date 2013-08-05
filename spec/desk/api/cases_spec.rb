@@ -43,7 +43,23 @@ describe Desk::Api::Cases do
       assert result.is_a? Array
       assert result.first.is_a? Desk::Case
     end
+  end
 
+  describe "#case_show" do
+
+    before { stub_case_show_endpoint }
+
+    it "will connect to the case show endpoint" do
+      subject.case_show(1234)
+
+      assert_requested :get, @url
+    end
+
+    it "will return a single case object" do
+      result = subject.case_show(1234)
+
+      assert result.is_a? Desk::Case
+    end
   end
 
 
@@ -51,6 +67,11 @@ describe Desk::Api::Cases do
   def stub_cases_endpoint
     @url = "https://user@example.com:foo@yoursite.desk.com/api/v2/cases"
     stub_request(:get, @url).with(headers: { accept: 'application/json' } ).to_return(body: JSON.load(fixture("cases.json")))
+  end
+
+  def stub_case_show_endpoint
+    @url = "https://user@example.com:foo@yoursite.desk.com/api/v2/cases/1234"
+    stub_request(:get, @url).with(headers: { accept: 'application/json' } ).to_return(body: JSON.load(fixture("case.json")))
   end
 
   def stub_cases_search_endpoint(query)
