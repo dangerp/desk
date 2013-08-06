@@ -1,9 +1,11 @@
 require 'desk/connection'
 require 'desk/api/cases'
+require 'desk/api/articles'
 
 module Desk
   class Client
     include Desk::Api::Cases
+    include Desk::Api::Articles
 
     def initialize(opts={})
       @opts = opts
