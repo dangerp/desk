@@ -17,12 +17,26 @@ module Desk
       @connection.get(*opts).body
     end
 
+    def post(*opts)
+      @connection.post(*opts).body
+    end
+
+    def patch(*opts)
+      @connection.patch(*opts).body
+    end
+
+    def delete(*opts)
+      result = @connection.delete(*opts)
+
+      result.status == 204
+    end
+
     private
 
     def connection
       @connection ||= Faraday.new(base_url, ssl: { verify: true } ) do |conn|
         conn.use FaradayMiddleware::ParseJson
-        conn.headers = {'Accept' => 'application/json'}
+        conn.headers = {'Content-Type' => 'application/json', 'Accept' => 'application/json' }
         conn.use Faraday::Adapter::NetHttp
       end
       @connection

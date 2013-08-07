@@ -1,14 +1,18 @@
 require 'desk/connection'
 require 'desk/api/cases'
 require 'desk/api/articles'
+require 'desk/api/translations'
 
 module Desk
   class Client
     include Desk::Api::Cases
-    include Desk::Api::Articles
 
     def initialize(opts={})
       @opts = opts
+    end
+
+    def articles
+      Desk::Api::Articles.new(connection)
     end
 
     private
