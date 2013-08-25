@@ -1,3 +1,5 @@
+require 'active_support/core_ext/hash'
+
 module Desk
   module Api
     class Articles
@@ -25,6 +27,13 @@ module Desk
 
       def delete(id)
         @connection.delete("articles/#{id}")
+      end
+
+      def search(text, opts={})
+        params = {text: text}
+        params.merge!(opts.slice(:topic_ids))
+
+        @connection.get("articles/search", params)
       end
     end
   end

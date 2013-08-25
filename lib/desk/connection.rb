@@ -14,7 +14,7 @@ module Desk
     end
 
     def get(*opts)
-      @connection.get(*opts).body
+      @connection.get(*stringify_arrays(*opts)).body
     end
 
     def post(*opts)
@@ -57,6 +57,12 @@ module Desk
 
     def base_url
       "https://#{@site}.desk.com/api/v2/"
+    end
+
+    def stringify_arrays(*opts)
+      opts.collect do |opt|
+        opt.is_a?(Hash) ? opt.each {|k,v| opt[k] = v.is_a?(Array) ? v.join(",") : v} : opt
+      end
     end
   end
 end

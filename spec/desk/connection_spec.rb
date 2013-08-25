@@ -22,6 +22,30 @@ describe Desk::Connection do
       expected = { "foo" => "bar" }
       assert_equal expected, result
     end
+
+    it "will pass hash arguments as params" do
+      url = "https://user@example.com:foo@yoursite.desk.com/api/v2/search?foo=bar"
+      stub_request(:get, url).with(headers: { accept: 'application/json' } )
+
+      result = subject.get("search", foo: "bar")
+      assert_requested :get, url
+    end
+
+    it "will url encode hash arguments" do
+      url = "https://user@example.com:foo@yoursite.desk.com/api/v2/search?foo=bar%26baz"
+      stub_request(:get, url).with(headers: { accept: 'application/json' } )
+
+      result = subject.get("search", foo: "bar&baz")
+      assert_requested :get, url
+    end
+
+    it "will join arrays" do
+      url = "https://user@example.com:foo@yoursite.desk.com/api/v2/search?foo=bar,baz"
+      stub_request(:get, url).with(headers: { accept: 'application/json' } )
+
+      result = subject.get("search", foo: ["bar","baz"])
+      assert_requested :get, url
+    end
   end
 
   describe "#post" do

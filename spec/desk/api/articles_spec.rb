@@ -99,7 +99,30 @@ describe Desk::Api::Articles do
   end
 
   describe "#search" do
-    it "will connect to the article search endpoint"
+
+    it "will connect to the article search endpoint" do
+      @connection.expect(:get, articles_fixture, ["articles/search", {text: "foo"}])
+
+      subject.search("foo")
+
+      @connection.verify
+    end
+
+    it "will pass topic IDs into the search query" do
+      @connection.expect(:get, articles_fixture, ["articles/search", {text: "foo", topic_ids: [1,2,3]}])
+
+      subject.search("foo", topic_ids: [1,2,3])
+
+      @connection.verify
+    end
+
+    it "will whitelist hash arguments" do
+      @connection.expect(:get, articles_fixture, ["articles/search", {text: "foo", topic_ids: [1,2,3]}])
+
+      subject.search("foo", topic_ids: [1,2,3], bar: "baz")
+
+      @connection.verify
+    end
   end
 
   def articles_fixture
