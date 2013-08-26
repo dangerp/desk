@@ -2,9 +2,9 @@ module Desk
   module Api
     class Translations
 
-      def initialize(connection, article)
+      def initialize(connection, parent)
         @connection = connection
-        @article = article
+        @parent = parent
       end
 
     end
