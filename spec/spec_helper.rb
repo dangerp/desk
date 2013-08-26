@@ -7,7 +7,7 @@ require 'webmock/minitest'
 
 require_relative "../lib/desk"
 
-MiniTest::Reporters.use! [MiniTest::Reporters::SpecReporter.new]
+MiniTest::Reporters.use!
 
 def fixture_path
   File.expand_path("../fixtures", __FILE__)
