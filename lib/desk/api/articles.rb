@@ -1,39 +1,33 @@
 require 'active_support/core_ext/hash'
+require 'desk/api/modules/listable'
+require 'desk/api/modules/creatable'
+require 'desk/api/modules/searchable'
+require 'desk/api/modules/deletable'
+require 'desk/article'
 
 module Desk
   module Api
     class Articles
 
+      include Desk::Api::Listable
+      include Desk::Api::Creatable
+      include Desk::Api::Searchable
+      include Desk::Api::Deletable
+
+      VALID_SEARCH_PARAMS = [:text, :topic_ids]
+
+      attr_reader :connection, :endpoint, :return_class
+
       def initialize(connection)
         @connection = connection
+        @endpoint = "articles"
+        @return_class = Desk::Article
       end
 
-      def all
-        Collection.new(@connection.get("articles"), Desk::Article)
-      end
+      private
 
-      def show(id)
-        raise ArgumentError "Must provide an article ID" unless id
-        Article.new(@connection.get("articles/#{id}"))
-      end
-
-      def create(article_data)
-        Article.new(@connection.post("articles", article_data))
-      end
-
-      def update(id, article_data)
-        Article.new(@connection.patch("articles/#{id}", article_data))
-      end
-
-      def delete(id)
-        @connection.delete("articles/#{id}")
-      end
-
-      def search(text, opts={})
-        params = {text: text}
-        params.merge!(opts.slice(:topic_ids))
-
-        @connection.get("articles/search", params)
+      def valid_search_params
+        VALID_SEARCH_PARAMS
       end
     end
   end

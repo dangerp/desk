@@ -1,8 +1,16 @@
 require 'active_support/core_ext/hash'
+require 'desk/api/modules/listable'
+require 'desk/api/modules/creatable'
+require 'desk/api/modules/searchable'
+require 'desk/case'
 
 module Desk
   module Api
     class Cases
+
+      include Desk::Api::Listable
+      include Desk::Api::Creatable
+      include Desk::Api::Searchable
 
       VALID_SEARCH_PARAMS= [:name, :first_name, :last_name, :email, :phone,
                             :company, :twitter, :labels, :case_id, :subject,
@@ -12,31 +20,18 @@ module Desk
                             :max_created_at, :since_updated_at, :max_updated_at,
                             :since_id, :max_id]
 
+      attr_reader :connection, :endpoint, :return_class
+
       def initialize(connection)
         @connection = connection
+        @endpoint = "cases"
+        @return_class = Desk::Case
       end
 
-      def all
-        Collection.new(@connection.get("cases"), Desk::Case)
-      end
+      private
 
-      def show(id)
-        raise ArgumentError "Must provide a case ID" unless id
-        Desk::Case.new(@connection.get("cases/#{id}"))
-      end
-
-      def create(case_data)
-        Desk::Case.new(@connection.post("cases", case_data))
-      end
-
-      def update(id, case_data)
-        Desk::Case.new(@connection.patch("cases/#{id}", case_data))
-      end
-
-      def search(opts={})
-        params = opts.slice(*VALID_SEARCH_PARAMS)
-
-        @connection.get("cases/search", params)
+      def valid_search_params
+        VALID_SEARCH_PARAMS
       end
     end
   end

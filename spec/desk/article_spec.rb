@@ -6,10 +6,10 @@ describe Desk::Article do
 
   describe "#translations" do
 
-    it "returns the translations API object" do
-      skip "Translations not yet implemented"
-      assert subject.translations.is_a? Desk::Api::Translations
-    end
+    # it "returns the translations API object" do
+    #   skip "Translations not yet implemented"
+    #   assert subject.translations.is_a? Desk::Api::Translations
+    # end
 
   end
 
