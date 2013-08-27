@@ -13,16 +13,16 @@ module Desk
       end
 
       def show(id)
-        raise ArgumentError "Must provide a case ID" unless id
+        raise ArgumentError "Must provide an article ID" unless id
         Article.new(@connection.get("articles/#{id}"))
       end
 
-      def create(article)
-        Article.new(@connection.post("articles", article))
+      def create(article_data)
+        Article.new(@connection.post("articles", article_data))
       end
 
-      def update(id, article)
-        Article.new(@connection.patch("articles/#{id}", article))
+      def update(id, article_data)
+        Article.new(@connection.patch("articles/#{id}", article_data))
       end
 
       def delete(id)

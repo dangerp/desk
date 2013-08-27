@@ -3,79 +3,156 @@ require_relative '../../spec_helper'
 
 describe Desk::Api::Cases do
 
-  subject { Desk::Client.new(site: "yoursite", email: "user@example.com", password: "foo") }
+  before { @connection = Minitest::Mock.new }
 
-  describe "#cases" do
+  subject { Desk::Api::Cases.new(@connection) }
 
-    before { stub_cases_endpoint }
+  describe "#all" do
+
+    before { @connection.expect(:get, cases_fixture, ["cases"]) }
 
     it "will connect to the cases endpoint" do
-      subject.cases
+      subject.all
 
-      assert_requested :get, @url
+      @connection.verify
     end
 
     it "will return an array of cases" do
-      result = subject.cases
-
-      assert result.is_a? Array
-      assert result.first.is_a? Desk::Case
-    end
-
-  end
-
-  describe "#cases_search" do
-
-    before do
-      @query = {name: "John"}
-      stub_cases_search_endpoint(@query)
-    end
-
-    it "will connect to the cases search endpoint" do
-      subject.cases_search(@query)
-
-      assert_requested :get, @url, query: @query
-    end
-
-    it "will return an array of cases" do
-      result = subject.cases_search(@query)
+      result = subject.all
 
       assert result.is_a? Array
       assert result.first.is_a? Desk::Case
     end
   end
 
-  describe "#case_show" do
+  describe "#show" do
 
-    before { stub_case_show_endpoint }
+    before { @connection.expect(:get, case_fixture, ["cases/1234"]) }
 
     it "will connect to the case show endpoint" do
-      subject.case_show(1234)
+      subject.show(1234)
 
-      assert_requested :get, @url
+      @connection.verify
     end
 
     it "will return a single case object" do
-      result = subject.case_show(1234)
+      result = subject.show(1234)
 
       assert result.is_a? Desk::Case
     end
   end
 
+  describe "#create" do
 
+    before do
+      @data = {
+                type: "email",
+                subject: "Creating a case via the API",
+                priority: 4,
+                status: "open",
+                labels: [
+                  "Spam",
+                  "Ignore"
+                ],
+                language: "fr",
+                created_at: "2012-05-01T21:38:48Z",
+                _links: {
+                  customer: {
+                    href: "/api/v2/customers/1",
+                    class: "customer"
+                  },
+                  assigned_user: {
+                    href: "/api/v2/users/1",
+                    class: "user"
+                  },
+                  assigned_group: {
+                    href: "/api/v2/groups/1",
+                    class: "group"
+                  },
+                  locked_by: {
+                    href: "/api/v2/users/1",
+                    class: "user"
+                  }
+                },
+                message: {
+                  direction: "in",
+                  status: "received",
+                  to: "someone@desk.com",
+                  from: "someone-else@desk.com",
+                  cc: "alpha@desk.com",
+                  bcc: "beta@desk.com",
+                  subject: "Creating a case via the API",
+                  body: "Please assist me with this case",
+                  created_at: "2012-05-02T21:38:48Z"
+                }
+              }
 
-  def stub_cases_endpoint
-    @url = "https://user@example.com:foo@yoursite.desk.com/api/v2/cases"
-    stub_request(:get, @url).with(headers: { accept: 'application/json' } ).to_return(body: JSON.load(fixture("cases.json")))
+      @connection.expect(:post, case_fixture, ["cases", @data])
+    end
+
+    it "will connect to the case creation endpoint" do
+      subject.create(@data)
+
+      @connection.verify
+    end
   end
 
-  def stub_case_show_endpoint
-    @url = "https://user@example.com:foo@yoursite.desk.com/api/v2/cases/1234"
-    stub_request(:get, @url).with(headers: { accept: 'application/json' } ).to_return(body: JSON.load(fixture("case.json")))
+  describe "#update" do
+    before do
+      @data = {
+                subject: "Updated",
+                status: "pending",
+                labels: [
+                  "Spam",
+                  "Test"
+                ],
+                custom_fields: {
+                  level: "super"
+                },
+                _links: {
+                  assigned_group: {
+                    href: "/api/v2/groups/1",
+                    rel: "group"
+                  }
+                }
+              }
+
+      @connection.expect(:patch, case_fixture, ["cases/1234", @data])
+    end
+
+    it "will connect to the case update endpoint" do
+      subject.update(1234, @data)
+
+      @connection.verify
+    end
   end
 
-  def stub_cases_search_endpoint(query)
-    @url = "https://user@example.com:foo@yoursite.desk.com/api/v2/cases/search"
-    stub_request(:get, @url).with(headers: { accept: 'application/json' }, query: query ).to_return(body: JSON.load(fixture("cases.json")))
+  describe "#search" do
+
+    Desk::Api::Cases::VALID_SEARCH_PARAMS.each do |param|
+      it "will pass whitelisted params into the search query" do
+        @connection.expect(:get, cases_fixture, ["cases/search", {param => "foo"}])
+
+        subject.search(param => "foo")
+
+        @connection.verify
+      end
+    end
+
+    it "will whitelist hash arguments" do
+      @connection.expect(:get, cases_fixture, ["cases/search", {name: "foo"}])
+
+      subject.search(name: "foo", bar: "baz")
+
+      @connection.verify
+    end
+  end
+
+  def cases_fixture
+    JSON.load(fixture("cases.json"))
+  end
+
+  def case_fixture
+    JSON.load(fixture("case.json"))
   end
 end

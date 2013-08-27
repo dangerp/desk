@@ -5,7 +5,6 @@ require 'desk/api/translations'
 
 module Desk
   class Client
-    include Desk::Api::Cases
 
     def initialize(opts={})
       @opts = opts
@@ -13,6 +12,10 @@ module Desk
 
     def articles
       Desk::Api::Articles.new(connection)
+    end
+
+    def cases
+      Desk::Api::Cases.new(connection)
     end
 
     private
