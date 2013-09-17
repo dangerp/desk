@@ -149,12 +149,33 @@ class CasesSpec
       end
     end
 
+    describe "#message" do
+
+      before { @connection.expect(:get, message_fixture, ["cases/1234/message"]) }
+
+      it "will connect to the case message endpoint" do
+        subject.message(1234)
+
+        @connection.verify
+      end
+
+      it "will return a single message object" do
+        result = subject.message(1234)
+
+        assert result.is_a? Desk::Message
+      end
+    end
+
     def cases_fixture
       JSON.load(fixture("cases.json"))
     end
 
     def case_fixture
       JSON.load(fixture("case.json"))
+    end
+
+    def message_fixture
+      JSON.load(fixture("message.json"))
     end
   end
 end

@@ -3,6 +3,7 @@ require 'desk/api/modules/listable'
 require 'desk/api/modules/creatable'
 require 'desk/api/modules/searchable'
 require 'desk/case'
+require 'desk/message'
 
 module Desk
   module Api
@@ -26,6 +27,10 @@ module Desk
         @connection = connection
         @endpoint = "cases"
         @return_class = Desk::Case
+      end
+
+      def message(id)
+        Desk::Message.new(connection.get("cases/#{id}/message"))
       end
 
       private
