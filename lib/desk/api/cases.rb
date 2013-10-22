@@ -33,6 +33,10 @@ module Desk
         Desk::Message.new(connection.get("cases/#{id}/message"))
       end
 
+      def replies(id)
+        Desk::Message.new(connection.get("cases/#{id}/replies"))
+      end
+
       private
 
       def valid_search_params

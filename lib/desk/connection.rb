@@ -37,6 +37,7 @@ module Desk
       @connection ||= Faraday.new(base_url, ssl: { verify: true } ) do |conn|
         conn.use FaradayMiddleware::ParseJson
         conn.headers = {'Content-Type' => 'application/json', 'Accept' => 'application/json' }
+        conn.request :json
         conn.use Faraday::Adapter::NetHttp
       end
       @connection
