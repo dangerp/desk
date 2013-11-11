@@ -1,3 +1,5 @@
+$: << File.expand_path('../lib', File.dirname(__FILE__))
+
 require 'desk/client'
 require 'desk/collection'
 require 'desk/entity'

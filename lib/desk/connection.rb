@@ -1,4 +1,5 @@
 require 'faraday_middleware'
+require 'desk/response/error_handling'
 
 module Desk
   class Connection
@@ -35,6 +36,7 @@ module Desk
 
     def connection
       @connection ||= Faraday.new(base_url, ssl: { verify: true } ) do |conn|
+        conn.use Desk::Response::ErrorHandling
         conn.use FaradayMiddleware::ParseJson
         conn.headers = {'Content-Type' => 'application/json', 'Accept' => 'application/json' }
         conn.request :json

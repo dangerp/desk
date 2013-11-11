@@ -1,11 +1,10 @@
-require File.expand_path('../../lib/desk.rb', __FILE__)
+$: << File.expand_path('../lib', File.dirname(__FILE__))
+require 'desk'
 
 require "minitest/spec"
 require 'minitest/autorun'
 require 'minitest/reporters'
 require 'webmock/minitest'
-
-require_relative "../lib/desk"
 
 MiniTest::Reporters.use!
 
