@@ -12,14 +12,16 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = ">= 1.3.6"
 
-  # If you have runtime dependencies, add them here
-  # s.add_runtime_dependency "other", "~> 1.2"
-
-  # If you have development dependencies, add them here
-  # s.add_development_dependency "another", "= 0.9"
-
-  # The list of files to be contained in the gem
   s.files         = `git ls-files`.split("\n")
 
   s.require_path = 'lib'
+
+  s.add_dependency "faraday_middleware", "~> 0.9.0"
+  s.add_dependency "activesupport", "~> 3.2.13"
+
+  s.add_development_dependency "pry", "~> 0.9.12"
+  s.add_development_dependency "rake", "~> 10.0.4"
+  s.add_development_dependency "webmock", "~> 1.11.0"
+  s.add_development_dependency "minitest", "~> 3.5.0"
+  s.add_development_dependency "minitest-reporters", "~> 0.14.20"
 end
