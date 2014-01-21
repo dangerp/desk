@@ -1,11 +1,11 @@
 Gem::Specification.new do |s|
-  s.name                     = "desk_api"
+  s.name                     = "desk_api_v2"
   s.version                  = "0.0.1"
   s.platform                 = Gem::Platform::RUBY
   s.authors                  = ["Justin Powers"]
   s.email                    = ["justinspowers@gmail.com"]
   s.homepage                 = "http://github.com/dangerp/desk"
-  s.summary                  = "A ruby interface to the Desk.com API"
+  s.summary                  = "A ruby interface to the Desk.com API V2"
   s.description              = s.summary
   s.licenses              = ['MIT']
   s.required_ruby_version = '>= 1.9.2'

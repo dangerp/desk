@@ -1,7 +1,7 @@
 A simple ruby interface to Desk.com
 
 ## Installation
-    gem install desk_api
+    gem install desk_api_v2
 
 ## Usage
 
