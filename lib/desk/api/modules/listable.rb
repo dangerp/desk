@@ -3,7 +3,7 @@ module Desk
     module Listable
 
       def all
-        Collection.new(connection.get(endpoint), return_class)
+        Desk::Collection.new(connection.get(endpoint), return_class)
       end
 
       def show(id)

@@ -1,4 +1,3 @@
-
 module Desk
   class Error < StandardError
 
