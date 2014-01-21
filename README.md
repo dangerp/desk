@@ -1,7 +1,7 @@
 A simple ruby interface to Desk.com
 
 ## Installation
-    gem install twitter
+    gem install desk_api
 
 ## Usage
 
