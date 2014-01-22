@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name                     = "desk_api_v2"
-  s.version                  = "0.0.1"
+  s.version                  = "0.0.2"
   s.platform                 = Gem::Platform::RUBY
   s.authors                  = ["Justin Powers"]
   s.email                    = ["justinspowers@gmail.com"]
