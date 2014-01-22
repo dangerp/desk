@@ -6,6 +6,8 @@ require 'minitest/autorun'
 require 'minitest/reporters'
 require 'webmock/minitest'
 
+require_relative 'assertions'
+
 MiniTest::Reporters.use!
 
 def fixture_path

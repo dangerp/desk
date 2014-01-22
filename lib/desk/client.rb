@@ -5,6 +5,7 @@ require 'desk/api/translations'
 require 'desk/api/customers'
 require 'desk/api/topics'
 require 'desk/api/groups'
+require 'desk/api/brands'
 
 module Desk
   class Client
