@@ -7,6 +7,7 @@ require 'desk/api/topics'
 require 'desk/api/groups'
 require 'desk/api/brands'
 require 'desk/api/companies'
+require 'desk/api/custom_fields'
 
 module Desk
   class Client
@@ -37,6 +38,10 @@ module Desk
 
     def companies
       Desk::Api::Brands.new(connection)
+    end
+
+    def custom_fields
+      Desk::Api::CustomFields.new(connection)
     end
 
     private
