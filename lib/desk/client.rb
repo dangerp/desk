@@ -8,6 +8,7 @@ require 'desk/api/groups'
 require 'desk/api/brands'
 require 'desk/api/companies'
 require 'desk/api/custom_fields'
+require 'desk/api/facebook_users'
 
 module Desk
   class Client
@@ -42,6 +43,10 @@ module Desk
 
     def custom_fields
       Desk::Api::CustomFields.new(connection)
+    end
+
+    def facebook_users
+      Desk::Api::FacebookUsers.new(connection)
     end
 
     private
