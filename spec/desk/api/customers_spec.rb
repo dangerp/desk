@@ -94,17 +94,6 @@ describe Desk::Api::Customers do
     end
   end
 
-  describe "#delete" do
-
-    before { @connection.expect(:delete, true, ["customers/1234"]) }
-
-    it "will connect to the customer delete endpoint" do
-      subject.delete(1234)
-
-      @connection.verify
-    end
-  end
-
   describe "#search" do
 
     it "will connect to the customer search endpoint" do

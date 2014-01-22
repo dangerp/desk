@@ -1,8 +1,6 @@
-require 'active_support/core_ext/hash'
 require 'desk/api/modules/listable'
 require 'desk/api/modules/creatable'
 require 'desk/api/modules/searchable'
-require 'desk/api/modules/deletable'
 require 'desk/customer'
 
 module Desk
@@ -12,7 +10,6 @@ module Desk
       include Desk::Api::Listable
       include Desk::Api::Creatable
       include Desk::Api::Searchable
-      include Desk::Api::Deletable
 
       VALID_SEARCH_PARAMS = [:first_name, :last_name, :full_name, :email, :since_created_at,
                              :max_created_at, :external_id, :since_updated_at, :max_updated_at,

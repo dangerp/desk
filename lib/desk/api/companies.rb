@@ -1,4 +1,3 @@
-# require 'active_support/core_ext/hash'
 require 'desk/api/modules/listable'
 require 'desk/api/modules/creatable'
 require 'desk/api/modules/searchable'

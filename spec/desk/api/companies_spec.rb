@@ -10,7 +10,7 @@ class CompaniesSpec
 
     describe "#all" do
 
-      it "will return an array of brands" do
+      it "will return an array of companies" do
         assert_returns_array_of(Desk::Company, endpoint: "companies", fixture: companies_fixture) { subject.all }
       end
     end
@@ -27,7 +27,7 @@ class CompaniesSpec
         @connection.expect(:post, company_fixture, ["companies", company_create_fixture])
       end
 
-      it "will connect to the case creation endpoint" do
+      it "will connect to the company creation endpoint" do
         subject.create(company_create_fixture)
 
         @connection.verify
@@ -39,7 +39,7 @@ class CompaniesSpec
         @connection.expect(:patch, company_fixture, ["companies/1234", company_update_fixture])
       end
 
-      it "will connect to the case update endpoint" do
+      it "will connect to the company update endpoint" do
         subject.update(1234, company_update_fixture)
 
         @connection.verify
