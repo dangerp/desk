@@ -24,4 +24,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "webmock", "~> 1.11.0"
   s.add_development_dependency "minitest", "~> 3.5.0"
   s.add_development_dependency "minitest-reporters", "~> 0.14.20"
+  s.add_development_dependency "bump"
 end

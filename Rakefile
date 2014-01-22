@@ -1,4 +1,5 @@
 require 'rake/testtask'
+require 'bump/tasks'
 
 begin
   require "bundler"
