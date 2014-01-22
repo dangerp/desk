@@ -6,6 +6,7 @@ require 'desk/api/customers'
 require 'desk/api/topics'
 require 'desk/api/groups'
 require 'desk/api/brands'
+require 'desk/api/companies'
 
 module Desk
   class Client
@@ -28,6 +29,14 @@ module Desk
 
     def topics
       Desk::Api::Topics.new(connection)
+    end
+
+    def brands
+      Desk::Api::Brands.new(connection)
+    end
+
+    def companies
+      Desk::Api::Brands.new(connection)
     end
 
     private

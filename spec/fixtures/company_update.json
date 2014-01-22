@@ -1,0 +1,11 @@
+{
+  "name": "Acme Enterprises",
+  "domains": [
+    "acme-ent.com",
+    "acmeinc.com",
+    "acmeinc.net"
+  ],
+  "custom_fields": {
+    "employer_id": "987654321"
+  }
+}

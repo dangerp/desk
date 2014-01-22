@@ -1,0 +1,10 @@
+{
+  "name": "Acme Inc",
+  "domains": [
+    "acmeinc.com",
+    "acmeinc.net"
+  ],
+  "custom_fields": {
+    "employer_id": "123456789"
+  }
+}

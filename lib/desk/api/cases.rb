@@ -19,7 +19,7 @@ module Desk
                             :assigned_user, :channels, :notes, :attachments,
                             :case_custom_key, :created, :updated, :since_created_at,
                             :max_created_at, :since_updated_at, :max_updated_at,
-                            :since_id, :max_id]
+                            :since_id, :max_id, :q]
 
       attr_reader :connection, :endpoint, :return_class
 
