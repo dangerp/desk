@@ -10,6 +10,7 @@ require 'desk/api/companies'
 require 'desk/api/custom_fields'
 require 'desk/api/facebook_users'
 require 'desk/api/filters'
+require 'desk/api/inbound_mailboxes'
 
 module Desk
   class Client
@@ -56,6 +57,10 @@ module Desk
 
     def groups
       Desk::Api::Groups.new(connection)
+    end
+
+    def inbound_mailboxes
+      Desk::Api::InboundMailboxes.new(connection)
     end
 
     private
