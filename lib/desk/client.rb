@@ -54,6 +54,10 @@ module Desk
       Desk::Api::Filters.new(connection)
     end
 
+    def groups
+      Desk::Api::Groups.new(connection)
+    end
+
     private
 
     def connection
